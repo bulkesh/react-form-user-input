@@ -1,3 +1,5 @@
+## React Form and use input
+Working with React Form and use input, validation, Form submission, "was touched", hooks, useReducers etc.
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
