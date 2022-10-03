@@ -1,10 +1,12 @@
 import styles from  './App.module.css';
+import Card from './components/shared/Card';
+import SimpleInput from './components/SimpleInput';
 
-function App() {
+const App = () => {
   return (
-    <div className={styles.App}>
-      App loaded successfully.....
-    </div>
+    <Card className={styles.app}>
+        <SimpleInput />
+    </Card>
   );
 }
 
