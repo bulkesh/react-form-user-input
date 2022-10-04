@@ -1,11 +1,8 @@
 import useInput from "../hooks/use-input";
+import { isEmailValid, isNotEmpty } from "../utils/form-data";
 import Input from "./shared/Input";
 
 const SimpleInput = () => {
-    const validteEmail = (email) => {
-        var re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return re.test(email);
-    }
     const {
         value: nameValue,
         valueIsValid: enteredNameIsValid,
@@ -13,7 +10,15 @@ const SimpleInput = () => {
         valueChnageHandler: inputChnageHandler,
         onBlurHandler: onNameBlurHandler,
         resetField: resetNameField
-    } = useInput(value => value.trim() !== '');
+    } = useInput(isNotEmpty);
+    const {
+        value: lNameValue,
+        valueIsValid: enteredLNameIsValid,
+        hasError: lNameFiledIsInValid,
+        valueChnageHandler: lNameChnageHandler,
+        onBlurHandler: onLNameBlurHandler,
+        resetField: resetLNameField
+    } = useInput(isNotEmpty);
     const {
         value: emailValue,
         valueIsValid: enteredEmailIsValid,
@@ -21,40 +26,54 @@ const SimpleInput = () => {
         valueChnageHandler: emailChnageHandler,
         onBlurHandler: onEmailBlurHandler,
         resetField: resetEmailField
-    } = useInput(value => validteEmail(value.trim()));
+    } = useInput(isEmailValid);
 
     let fornIsValid = false;
-    if (enteredNameIsValid && enteredEmailIsValid) {
+    if (enteredNameIsValid && enteredLNameIsValid && enteredEmailIsValid ) {
         fornIsValid = true;
     }
 
     const onSubmitHandler = event => {
         event.preventDefault();
-        if (!enteredNameIsValid || !enteredEmailIsValid) {
+
+        if (!enteredNameIsValid || !enteredLNameIsValid || !enteredEmailIsValid ) {
             return;
         }
         resetNameField();
+        resetLNameField();
         resetEmailField();
     }
     const nameInputClass = nameFiledIsInValid ? 'form-control invalid' : 'form-control';
+    const lNameInputClass = lNameFiledIsInValid ? 'form-control invalid' : 'form-control';
     const emailInputClass = emailFiledIsInValid ? 'form-control invalid' : 'form-control';
     return (
         <form onSubmit={onSubmitHandler}>
             <Input
                 className={nameInputClass}
-                id='name'
-                label='Name'
+                id='fname'
+                label='First Name'
                 type="text"
                 onChange={inputChnageHandler}
                 onBlur={onNameBlurHandler}
                 value={nameValue}
                 filedIsInValid={nameFiledIsInValid}
-                errorMessage='Name field is required'
+                errorMessage='First Name field is required'
+            />
+            <Input
+                className={lNameInputClass}
+                id='lname'
+                label='Last Name'
+                type="text"
+                onChange={lNameChnageHandler}
+                onBlur={onLNameBlurHandler}
+                value={lNameValue}
+                filedIsInValid={lNameFiledIsInValid}
+                errorMessage='Last Name field is required'
             />
             <Input
                 className={emailInputClass}
                 id='email'
-                label='Email'
+                label='E-Mail Address'
                 type="email"
                 onChange={emailChnageHandler}
                 onBlur={onEmailBlurHandler}
