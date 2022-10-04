@@ -1,26 +1,54 @@
-import { useState } from "react";
+import { useState, useReducer } from "react";
 
+const actions = {
+  INPUT: 'INPUT',
+  BLUR: 'BLUR',
+  RESET: 'RESET'
+}
+
+const initialState = {
+  value: '',
+  fieldTouched: false
+}
+
+const inputReducer = (state, { type, value }) => {
+  switch (type) {
+    case actions.INPUT:
+      return {
+        ...state,
+        value: value
+      }
+    case actions.BLUR:
+      return {
+        ...state,
+        fieldTouched: true
+      }
+    case actions.RESET:
+      return initialState
+    default:
+      return state
+  }
+}
 const useInput = (validteValue) => {
-  const [fieldValue, setFieldValue] = useState('');
-  const [fieldTouched, setFieldTouched] = useState(false);
+  const [state, dispatch] = useReducer(inputReducer, initialState);
 
-  const valueIsValid = validteValue(fieldValue);
-  const hasError = !valueIsValid && fieldTouched;
+  const valueIsValid = validteValue(state.value);
+  const hasError = !valueIsValid && state.fieldTouched;
 
   const valueChnageHandler = event => {
-    setFieldValue(event.target.value);
+    dispatch({type:actions.INPUT, value: event.target.value})
   }
+  
   const onBlurHandler = () => {
-    setFieldTouched(true);
+    dispatch({type:actions.BLUR})
   }
 
   const resetField = () => {
-    setFieldValue('');
-    setFieldTouched(false);
+    dispatch({type:actions.RESET})
   }
 
   return {
-    value: fieldValue,
+    value: state.value,
     valueIsValid,
     hasError,
     valueChnageHandler,

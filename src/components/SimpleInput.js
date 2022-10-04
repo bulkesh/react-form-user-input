@@ -35,10 +35,10 @@ const SimpleInput = () => {
 
     const onSubmitHandler = event => {
         event.preventDefault();
-
         if (!enteredNameIsValid || !enteredLNameIsValid || !enteredEmailIsValid ) {
             return;
         }
+        console.log(nameValue+" : "+lNameValue+" : "+emailValue)
         resetNameField();
         resetLNameField();
         resetEmailField();
