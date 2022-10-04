@@ -3,9 +3,9 @@ const Input = (props) => {
         <div className={props.className}>
             <label htmlFor='name'>{props.label}</label>
             <input
+                autoComplete="off"
                 type={props.type}
                 id={props.id}
-                autoComplete="off"
                 onChange={props.onChange}
                 onBlur={props.onBlur}
                 value={props.value}
