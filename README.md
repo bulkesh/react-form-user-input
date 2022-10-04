@@ -1,9 +1,13 @@
 ## React Form and use input
-Working with React Form and use input, validation, Form submission, "was touched", hooks, useReducers etc.
+Working with React Form and useInput, validation, Form submission, "was touched", hooks, useReducers etc.
 
 ## Reusable (Shared components)
-### Card
-card with white background and central alligned 
+### 1. Card
+Card with white background and central alligned 
+
+### 2. Input
+Reusable Input field which takes all dynamic properties in props and create a reusable input field.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
